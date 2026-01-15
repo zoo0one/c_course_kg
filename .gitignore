@@ -1,0 +1,51 @@
+# ========== macOS ==========
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ========== Editors / IDEs ==========
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains
+.idea/
+
+# ========== Python / Conda (if any scripts/tools are used) ==========
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+.env
+
+# ========== C / C++ build artifacts ==========
+*.o
+*.obj
+*.out
+*.exe
+*.a
+*.so
+*.dylib
+*.dll
+*.dSYM/
+
+# Common build dirs
+build/
+cmake-build-*/
+Debug/
+Release/
+
+# ========== Logs / temp ==========
+*.log
+*.tmp
+*.swp
+
+# ========== Neo4j (local data should NOT be committed) ==========
+# If you run Neo4j locally and it creates these folders in the project
+data/
+logs/
+import/*.dump
+*.dump
+
+# ========== Misc ==========
+*.bak
