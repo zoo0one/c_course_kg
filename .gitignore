@@ -16,6 +16,8 @@ __pycache__/
 *.py[cod]
 *.pyo
 .venv/
+venv/
+venv_new/
 .env
 
 # ========== C / C++ build artifacts ==========
@@ -39,6 +41,9 @@ Release/
 *.log
 *.tmp
 *.swp
+
+# Test/generated outputs
+tests/cleaner/output/
 
 # ========== Neo4j (local data should NOT be committed) ==========
 # If you run Neo4j locally and it creates these folders in the project
