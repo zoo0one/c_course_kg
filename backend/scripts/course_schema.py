@@ -36,14 +36,14 @@ KNOWLEDGE_POINTS: List[Dict[str, Any]] = [
     {"kp_id": "KP0106", "chapter_id": "CH02", "section": "2.3", "category": "syntax", "name": "赋值运算符", "aliases": "赋值表达式,复合赋值", "source": "seed", "reviewed": True},
     {"kp_id": "KP0107", "chapter_id": "CH02", "section": "2.4", "category": "syntax", "name": "格式化输入输出", "aliases": "printf,scanf", "source": "seed", "reviewed": True},
     {"kp_id": "KP0108", "chapter_id": "CH02", "section": "2.5", "category": "syntax", "name": "顺序结构程序设计", "aliases": "顺序执行", "source": "seed", "reviewed": True},
-    {"kp_id": "KP0201", "chapter_id": "CH03", "section": "3.1", "category": "control", "name": "if语句", "aliases": "单分支,条件语句", "source": "seed", "reviewed": True},
-    {"kp_id": "KP0202", "chapter_id": "CH03", "section": "3.1", "category": "control", "name": "if-else语句", "aliases": "双分支", "source": "seed", "reviewed": True},
-    {"kp_id": "KP0203", "chapter_id": "CH03", "section": "3.1", "category": "control", "name": "else-if语句", "aliases": "多分支,嵌套if", "source": "seed", "reviewed": True},
-    {"kp_id": "KP0204", "chapter_id": "CH03", "section": "3.2", "category": "datatype", "name": "字符型数据", "aliases": "char,字符常量,字符变量", "source": "seed", "reviewed": True},
-    {"kp_id": "KP0205", "chapter_id": "CH03", "section": "3.2", "category": "syntax", "name": "关系运算符", "aliases": "比较运算,关系表达式", "source": "seed", "reviewed": True},
-    {"kp_id": "KP0206", "chapter_id": "CH03", "section": "3.2", "category": "syntax", "name": "逻辑运算符", "aliases": "&&,||,!,逻辑表达式", "source": "seed", "reviewed": True},
-    {"kp_id": "KP0207", "chapter_id": "CH03", "section": "3.3", "category": "control", "name": "switch语句", "aliases": "多分支选择,case,default", "source": "seed", "reviewed": True},
-    {"kp_id": "KP0208", "chapter_id": "CH03", "section": "3.3", "category": "control", "name": "break语句", "aliases": "跳出switch", "source": "seed", "reviewed": True},
+    {"kp_id": "KP0201", "chapter_id": "CH03", "section": "3.1", "category": "control", "name": "if语句", "aliases": "单分支,条件语句", "source": "seed", "source_book": "C语言程序设计教程", "source_page": 56, "source_pages": "56-58", "reviewed": True, "role": "entry", "level": 1, "main_chain_order": 1, "importance": "high"},
+    {"kp_id": "KP0202", "chapter_id": "CH03", "section": "3.1", "category": "control", "name": "if-else语句", "aliases": "双分支", "source": "seed", "source_book": "C语言程序设计教程", "source_page": 58, "source_pages": "58-60", "reviewed": True, "role": "core", "level": 2, "main_chain_order": 2, "importance": "high"},
+    {"kp_id": "KP0203", "chapter_id": "CH03", "section": "3.1", "category": "control", "name": "else-if语句", "aliases": "多分支,嵌套if", "source": "seed", "source_book": "C语言程序设计教程", "source_page": 60, "source_pages": "60-62", "reviewed": True, "role": "core", "level": 3, "main_chain_order": 3, "importance": "high"},
+    {"kp_id": "KP0204", "chapter_id": "CH03", "section": "3.2", "category": "datatype", "name": "字符型数据", "aliases": "char,字符常量,字符变量", "source": "seed", "source_book": "C语言程序设计教程", "source_page": 63, "source_pages": "63-64", "reviewed": True, "role": "auxiliary", "level": 0, "main_chain_order": None, "importance": "low"},
+    {"kp_id": "KP0205", "chapter_id": "CH03", "section": "3.2", "category": "syntax", "name": "关系运算符", "aliases": "比较运算,关系表达式", "source": "seed", "source_book": "C语言程序设计教程", "source_page": 64, "source_pages": "64-66", "reviewed": True, "role": "branch", "level": 0, "main_chain_order": None, "importance": "medium"},
+    {"kp_id": "KP0206", "chapter_id": "CH03", "section": "3.2", "category": "syntax", "name": "逻辑运算符", "aliases": "&&,||,!,逻辑表达式", "source": "seed", "source_book": "C语言程序设计教程", "source_page": 66, "source_pages": "66-68", "reviewed": True, "role": "branch", "level": 0, "main_chain_order": None, "importance": "medium"},
+    {"kp_id": "KP0207", "chapter_id": "CH03", "section": "3.3", "category": "control", "name": "switch语句", "aliases": "多分支选择,case,default", "source": "seed", "source_book": "C语言程序设计教程", "source_page": 69, "source_pages": "69-72", "reviewed": True, "role": "core", "level": 4, "main_chain_order": 4, "importance": "high"},
+    {"kp_id": "KP0208", "chapter_id": "CH03", "section": "3.3", "category": "control", "name": "break语句", "aliases": "跳出switch", "source": "seed", "source_book": "C语言程序设计教程", "source_page": 71, "source_pages": "71-72", "reviewed": True, "role": "extension", "level": 5, "main_chain_order": None, "importance": "medium"},
     {"kp_id": "KP0301", "chapter_id": "CH04", "section": "4.1", "category": "control", "name": "for语句", "aliases": "for循环,计数循环", "source": "seed", "reviewed": True},
     {"kp_id": "KP0302", "chapter_id": "CH04", "section": "4.2", "category": "control", "name": "while语句", "aliases": "while循环,当型循环", "source": "seed", "reviewed": True},
     {"kp_id": "KP0303", "chapter_id": "CH04", "section": "4.3", "category": "control", "name": "do-while语句", "aliases": "直到型循环", "source": "seed", "reviewed": True},
@@ -105,6 +105,14 @@ KNOWLEDGE_POINTS: List[Dict[str, Any]] = [
     {"kp_id": "KP1106", "chapter_id": "CH12", "section": "12.6", "category": "syntax", "name": "错误处理", "aliases": "ferror,feof,perror", "source": "seed", "reviewed": True},
 ]
 
+EXAMPLES: List[Dict[str, Any]] = [
+    {"example_id": "EX0301", "chapter_id": "CH03", "section": "3.1", "name": "正数判断", "scene": "输入一个整数，判断它是否为正数", "difficulty": "easy", "target_kp_id": "KP0201", "source": "seed", "reviewed": True},
+    {"example_id": "EX0302", "chapter_id": "CH03", "section": "3.1", "name": "奇偶数判断", "scene": "输入一个整数，判断它是奇数还是偶数", "difficulty": "easy", "target_kp_id": "KP0202", "source": "seed", "reviewed": True},
+    {"example_id": "EX0303", "chapter_id": "CH03", "section": "3.1", "name": "成绩分档", "scene": "根据成绩区间输出等级", "difficulty": "medium", "target_kp_id": "KP0203", "source": "seed", "reviewed": True},
+    {"example_id": "EX0304", "chapter_id": "CH03", "section": "3.3", "name": "菜单选择程序", "scene": "根据菜单编号执行不同操作", "difficulty": "medium", "target_kp_id": "KP0207", "source": "seed", "reviewed": True},
+    {"example_id": "EX0305", "chapter_id": "CH03", "section": "3.3", "name": "case退出示例", "scene": "展示 break 在 case 分支中及时退出的作用", "difficulty": "easy", "target_kp_id": "KP0208", "source": "seed", "reviewed": True},
+]
+
 RELATIONS: List[Dict[str, Any]] = [
     # CONTAINS
     {"source": "KP0005", "target": "KP0108", "relation_type": "CONTAINS", "description": "结构化程序设计包含顺序结构"},
@@ -116,8 +124,6 @@ RELATIONS: List[Dict[str, Any]] = [
     {"source": "KP0102", "target": "KP0103", "relation_type": "CONTAINS", "description": "变量与常量包含整型数据类型"},
     {"source": "KP0102", "target": "KP0104", "relation_type": "CONTAINS", "description": "变量与常量包含浮点型数据类型"},
     {"source": "KP0102", "target": "KP0204", "relation_type": "CONTAINS", "description": "变量与常量包含字符型数据"},
-    {"source": "KP0201", "target": "KP0202", "relation_type": "CONTAINS", "description": "if语句包含if-else双分支形式"},
-    {"source": "KP0201", "target": "KP0203", "relation_type": "CONTAINS", "description": "if语句包含else-if多分支形式"},
     {"source": "KP0601", "target": "KP0602", "relation_type": "CONTAINS", "description": "一维数组概念扩展包含二维数组"},
     {"source": "KP0601", "target": "KP0603", "relation_type": "CONTAINS", "description": "一维数组包含字符数组这一特殊形式"},
     {"source": "KP0801", "target": "KP0802", "relation_type": "CONTAINS", "description": "结构体定义包含结构体变量的使用"},
@@ -135,6 +141,9 @@ RELATIONS: List[Dict[str, Any]] = [
     {"source": "KP0102", "target": "KP0201", "relation_type": "PREREQUISITE", "description": "变量与数据类型是学分支结构的前提"},
     {"source": "KP0205", "target": "KP0201", "relation_type": "PREREQUISITE", "description": "关系运算是if条件判断的前提"},
     {"source": "KP0206", "target": "KP0201", "relation_type": "PREREQUISITE", "description": "逻辑运算是复杂条件判断的前提"},
+    {"source": "KP0201", "target": "KP0202", "relation_type": "PREREQUISITE", "description": "掌握单分支if后再学习双分支if-else"},
+    {"source": "KP0202", "target": "KP0203", "relation_type": "PREREQUISITE", "description": "掌握双分支if-else后再学习多条件else-if"},
+    {"source": "KP0203", "target": "KP0207", "relation_type": "PREREQUISITE", "description": "掌握条件链else-if后再学习switch多分支选择"},
     {"source": "KP0201", "target": "KP0301", "relation_type": "PREREQUISITE", "description": "分支结构是循环结构的前提"},
     {"source": "KP0301", "target": "KP0401", "relation_type": "PREREQUISITE", "description": "循环结构是函数设计的前提"},
     {"source": "KP0401", "target": "KP0601", "relation_type": "PREREQUISITE", "description": "函数是数组参数传递的前提"},
@@ -180,11 +189,10 @@ RELATIONS: List[Dict[str, Any]] = [
     {"source": "KP0605", "target": "KP0601", "relation_type": "EXTENDS", "description": "数组作函数参数是一维数组的扩展应用"},
     {"source": "KP0606", "target": "KP0301", "relation_type": "EXTENDS", "description": "排序算法是for循环的典型综合应用"},
     {"source": "KP0707", "target": "KP0606", "relation_type": "EXTENDS", "description": "冒泡排序指针实现是排序算法的指针版深化"},
+    {"source": "KP0207", "target": "KP0208", "relation_type": "EXTENDS", "description": "break语句是switch分支退出控制的配套扩展"},
     # RELATED
     {"source": "KP0105", "target": "KP0106", "relation_type": "RELATED", "description": "算术运算符与赋值运算符密切相关"},
-    {"source": "KP0201", "target": "KP0202", "relation_type": "RELATED", "description": "if语句与if-else是分支控制的核心"},
-    {"source": "KP0202", "target": "KP0203", "relation_type": "RELATED", "description": "if-else与else-if是分支扩展关系"},
-    {"source": "KP0207", "target": "KP0208", "relation_type": "RELATED", "description": "switch语句与break语句配合使用"},
+    {"source": "KP0204", "target": "KP0207", "relation_type": "RELATED", "description": "字符型数据常作为switch分支判断中的典型输入类型"},
     {"source": "KP0301", "target": "KP0302", "relation_type": "RELATED", "description": "for循环与while循环都是循环结构"},
     {"source": "KP0302", "target": "KP0303", "relation_type": "RELATED", "description": "while与do-while是条件循环的两种形式"},
     {"source": "KP0304", "target": "KP0301", "relation_type": "RELATED", "description": "break与continue常用于for循环"},
@@ -205,4 +213,10 @@ RELATIONS: List[Dict[str, Any]] = [
     {"source": "KP1001", "target": "KP1002", "relation_type": "RELATED", "description": "二级指针与动态内存分配常组合使用"},
     {"source": "KP1103", "target": "KP1104", "relation_type": "RELATED", "description": "文件读写与格式化文件读写直接相关"},
     {"source": "KP1105", "target": "KP1106", "relation_type": "RELATED", "description": "文件定位与错误处理都是文件操作的辅助功能"},
+    # EXAMPLE_OF
+    {"source": "EX0301", "target": "KP0201", "relation_type": "EXAMPLE_OF", "description": "正数判断是if语句的典型单分支示例"},
+    {"source": "EX0302", "target": "KP0202", "relation_type": "EXAMPLE_OF", "description": "奇偶数判断是if-else语句的典型双分支示例"},
+    {"source": "EX0303", "target": "KP0203", "relation_type": "EXAMPLE_OF", "description": "成绩分档是else-if语句的典型多分支示例"},
+    {"source": "EX0304", "target": "KP0207", "relation_type": "EXAMPLE_OF", "description": "菜单选择程序是switch语句的典型应用示例"},
+    {"source": "EX0305", "target": "KP0208", "relation_type": "EXAMPLE_OF", "description": "case退出示例用于说明break语句的作用"},
 ] 

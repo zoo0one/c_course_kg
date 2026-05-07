@@ -15,6 +15,9 @@ class KnowledgePointOut(BaseModel):
     section: Optional[str] = None
     aliases: Optional[str] = None
     source: Optional[str] = None
+    source_book: Optional[str] = None
+    source_page: Optional[int] = None
+    source_pages: Optional[str] = None
 
 
 class ChapterDetailOut(BaseModel):

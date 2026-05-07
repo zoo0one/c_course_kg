@@ -4,6 +4,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   HomeOutlined,
+  BookOutlined,
   ApartmentOutlined,
   SettingOutlined,
   BulbOutlined,
@@ -113,6 +114,11 @@ export const AppHeader: React.FC<HeaderProps> = ({
             key: 'dashboard',
             icon: <HomeOutlined />,
             label: '主页',
+          },
+          {
+            key: 'chapter-overview',
+            icon: <BookOutlined />,
+            label: '章节导航',
           },
           {
             key: 'graph',

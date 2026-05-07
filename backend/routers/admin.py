@@ -16,8 +16,6 @@ import os
 from dotenv import load_dotenv
 
 import fitz
-import pytesseract
-from PIL import Image
 
 from backend.db.neo4j import neo4j_client
 from backend.services.ai import ai_service
@@ -378,6 +376,19 @@ def _extract_job_runner(job_id: str) -> None:
 
             # OCR 回退：文本层为空时，渲染图片并识别
             pix = page.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False)
+            try:
+                from PIL import Image
+                import pytesseract
+            except Exception:
+                page_logs.append({
+                    "page": page_no,
+                    "source": "ocr_unavailable",
+                    "chars": 0,
+                    "file": "",
+                    "preview": "",
+                })
+                continue
+
             img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
             try:
                 ocr_raw = pytesseract.image_to_string(img, lang="chi_sim+eng")

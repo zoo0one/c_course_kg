@@ -10,6 +10,8 @@ import { statsAPI } from '@/services/api'
 interface DashboardProps {
   onNavigate: (page: string) => void
   onOpenChat: () => void
+  chapters: { chapter_id: string; title: string; order: number }[]
+  onSelectChapter: (chapterId: string) => void
 }
 
 const RELATION_LEGEND = [
@@ -19,7 +21,7 @@ const RELATION_LEGEND = [
   { label: 'RELATED', color: '#475569', desc: '相关关联', dashed: true },
 ]
 
-export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenChat }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenChat, chapters, onSelectChapter }) => {
   const statistics = useAppStore((state) => state.statistics)
   const setStatistics = useAppStore((state) => state.setStatistics)
   useEffect(() => {
@@ -38,6 +40,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenChat }) 
     { key: 'search', icon: <SearchOutlined style={{ fontSize: 26 }} />, title: '智能搜索', desc: '按名称或别名快速定位知识点', color: 'var(--purple)', glow: 'rgba(167,139,250,0.2)', onClick: () => {} },
     { key: 'admin', icon: <SettingOutlined style={{ fontSize: 26 }} />, title: '管理面板', desc: '增删改查知识点，批量导入数据', color: 'var(--accent)', glow: 'var(--accent-glow)', onClick: () => onNavigate('admin') },
   ]
+
+  const chapterNodes = [...chapters]
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 24)
 
   return (
     <div className="grid-bg" style={{ height: '100%', overflowY: 'auto', background: 'var(--bg-base)' }}>
@@ -100,6 +106,54 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenChat }) 
                       <div style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.6 }}>{action.desc}</div>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 章节导航图（主页下半区） */}
+            <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, padding: '18px 20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <ApartmentOutlined style={{ color: 'var(--primary)', fontSize: 13 }} />
+                  <span style={{ color: 'var(--text-secondary)', fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
+                    章节知识图谱入口
+                  </span>
+                </div>
+                <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>点击章节跳转</span>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 12 }}>
+                {chapterNodes.map((ch) => (
+                  <button
+                    key={ch.chapter_id}
+                    onClick={() => onSelectChapter(ch.chapter_id)}
+                    style={{
+                      position: 'relative',
+                      border: '1px solid var(--border)',
+                      borderRadius: 10,
+                      background: 'var(--bg-hover)',
+                      padding: '12px 12px 10px',
+                      textAlign: 'left',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--primary)'
+                      e.currentTarget.style.boxShadow = '0 0 0 2px var(--primary-glow)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--border)'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+                      <BookOutlined style={{ color: 'var(--primary)', fontSize: 12 }} />
+                      <span style={{ color: 'var(--primary)', fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 600 }}>{ch.chapter_id}</span>
+                    </div>
+                    <div style={{ color: 'var(--text-primary)', fontSize: 13, fontWeight: 600, lineHeight: 1.4 }}>
+                      {ch.title}
+                    </div>
+                  </button>
                 ))}
               </div>
             </div>

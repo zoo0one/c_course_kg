@@ -10,3 +10,4 @@ pytesseract==0.3.10
 tqdm==4.66.1
 requests==2.31.0
 python-multipart==0.0.6
+pycparser==2.22

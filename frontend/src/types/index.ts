@@ -6,6 +6,9 @@ export interface KnowledgePoint {
   section?: string
   aliases?: string
   source?: string
+  source_book?: string
+  source_page?: number
+  source_pages?: string
 }
 
 // 章节类型

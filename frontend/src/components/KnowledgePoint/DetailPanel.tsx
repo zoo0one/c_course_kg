@@ -1,6 +1,6 @@
-import React from 'react'
-import { Drawer, Tabs, Space, Empty, Spin } from 'antd'
-import { BookOutlined, LinkOutlined } from '@ant-design/icons'
+import React, { useMemo } from 'react'
+import { Drawer, Tabs, Space, Empty, Spin, Tag } from 'antd'
+import { BookOutlined, LinkOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import type { KnowledgePoint } from '@/types'
 
 interface DetailPanelProps {
@@ -11,6 +11,20 @@ interface DetailPanelProps {
   successors?: KnowledgePoint[]
   related?: KnowledgePoint[]
   loading?: boolean
+}
+
+const formatSource = (kp: KnowledgePoint) => {
+  const book = kp.source_book || kp.source || '未记录来源'
+  const pageText = kp.source_pages || (kp.source_page ? `第 ${kp.source_page} 页` : '')
+  return pageText ? `${book} · ${pageText}` : book
+}
+
+const buildIntro = (kp: KnowledgePoint) => {
+  const parts: string[] = []
+  if (kp.section) parts.push(`位于 ${kp.section}`)
+  if (kp.aliases) parts.push(`别名：${kp.aliases.split(',').map((a) => a.trim()).filter(Boolean).slice(0, 3).join('、')}`)
+  if (kp.source_book || kp.source || kp.source_page || kp.source_pages) parts.push(`来源：${formatSource(kp)}`)
+  return parts.length > 0 ? parts.join('；') : '暂无简介，后续可以在导入数据时补充知识点说明。'
 }
 
 const KPCard: React.FC<{ kp: KnowledgePoint; color: string }> = ({ kp, color }) => (
@@ -39,6 +53,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
 }) => {
   if (!kp) return null
 
+  const intro = useMemo(() => buildIntro(kp), [kp])
+  const sourceText = useMemo(() => formatSource(kp), [kp])
+
   const items = [
     {
       key: '1',
@@ -53,6 +70,10 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           <div>
             <div style={{ color: 'var(--text-muted)', fontSize: 11, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>章节</div>
             <span style={{ background: 'var(--primary-glow)', border: '1px solid rgba(56,189,248,0.3)', color: 'var(--primary)', borderRadius: 4, padding: '2px 8px', fontSize: 12, fontFamily: 'var(--font-mono)' }}>{kp.chapter_id}</span>
+          </div>
+          <div>
+            <div style={{ color: 'var(--text-muted)', fontSize: 11, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>简介</div>
+            <div style={{ color: 'var(--text-secondary)', fontSize: 13, lineHeight: 1.7 }}>{intro}</div>
           </div>
           {kp.section && (
             <div>
@@ -70,12 +91,15 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </div>
             </div>
           )}
-          {kp.source && (
-            <div>
-              <div style={{ color: 'var(--text-muted)', fontSize: 11, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>来源</div>
-              <div style={{ color: 'var(--text-secondary)', fontSize: 12 }}>{kp.source}</div>
-            </div>
-          )}
+          <div>
+            <div style={{ color: 'var(--text-muted)', fontSize: 11, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>来源</div>
+            <div style={{ color: 'var(--text-secondary)', fontSize: 12, lineHeight: 1.6 }}>{sourceText}</div>
+            {kp.source_page && !kp.source_pages && (
+              <div style={{ color: 'var(--text-muted)', fontSize: 11, marginTop: 4 }}>
+                页面：第 {kp.source_page} 页
+              </div>
+            )}
+          </div>
         </div>
       ),
     },

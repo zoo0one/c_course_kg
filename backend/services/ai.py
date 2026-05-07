@@ -222,18 +222,26 @@ class AIService:
         return self.client.generate(self._build_prompt(message, context), stream=stream)
 
     def explain_kp(self, kp_name: str, kp_data: Dict[str, Any]) -> str:
+        source_book = kp_data.get('source_book') or kp_data.get('source') or '未记录'
+        source_page = kp_data.get('source_pages') or (f"第 {kp_data.get('source_page')} 页" if kp_data.get('source_page') else '未记录')
         prompt = f"""请详细解释 C 语言中的"{kp_name}"这个知识点。
 
 信息：
 - 章节: {kp_data.get('chapter_id', '未知')}
 - 小节: {kp_data.get('section', '未知')}
 - 别名: {kp_data.get('aliases', '无')}
+- 来源: {source_book} {source_page}
 
 请包括：
 1. 基本概念
 2. 实际应用
 3. 常见错误
-4. 代码示例"""
+4. 代码示例
+
+要求：
+- 解释内容要通俗易懂
+- 单独列出“来源”
+- 不要虚构来源，只能基于已给出的信息整理"""
         return self.generate_text(prompt)
 
     def recommend_path(self, kp_name: str) -> str:

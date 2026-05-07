@@ -53,7 +53,8 @@ def get_chapter_detail(chapter_id: str):
         """
         MATCH (c:Chapter {chapter_id: $chapter_id})-[:CONTAINS]->(k:KnowledgePoint)
         RETURN k.kp_id AS kp_id, k.name AS name, k.chapter_id AS chapter_id,
-               k.section AS section, k.aliases AS aliases, k.source AS source
+               k.section AS section, k.aliases AS aliases, k.source AS source,
+               k.source_book AS source_book, k.source_page AS source_page, k.source_pages AS source_pages
         ORDER BY k.section
         """,
         {"chapter_id": chapter_id},
@@ -68,7 +69,8 @@ def search_kps(q: str = Query(..., min_length=1)):
         MATCH (k:KnowledgePoint)
         WHERE k.name CONTAINS $q OR coalesce(k.aliases, "") CONTAINS $q
         RETURN k.kp_id AS kp_id, k.name AS name, k.chapter_id AS chapter_id,
-               k.section AS section, k.aliases AS aliases, k.source AS source
+               k.section AS section, k.aliases AS aliases, k.source AS source,
+               k.source_book AS source_book, k.source_page AS source_page, k.source_pages AS source_pages
         ORDER BY k.chapter_id, k.section LIMIT 50
         """,
         {"q": q},
@@ -78,7 +80,7 @@ def search_kps(q: str = Query(..., min_length=1)):
 @router.get("/kps/{kp_id}", response_model=KnowledgePointOut)
 def get_kp_detail(kp_id: str):
     rows = neo4j_client.run(
-        "MATCH (k:KnowledgePoint {kp_id: $kp_id}) RETURN k.kp_id AS kp_id, k.name AS name, k.chapter_id AS chapter_id, k.section AS section, k.aliases AS aliases, k.source AS source",
+        "MATCH (k:KnowledgePoint {kp_id: $kp_id}) RETURN k.kp_id AS kp_id, k.name AS name, k.chapter_id AS chapter_id, k.section AS section, k.aliases AS aliases, k.source AS source, k.source_book AS source_book, k.source_page AS source_page, k.source_pages AS source_pages",
         {"kp_id": kp_id},
     )
     if not rows:
@@ -92,7 +94,8 @@ def get_prerequisites(kp_id: str):
         """
         MATCH (k:KnowledgePoint {kp_id: $kp_id})-[:PREREQUISITE]->(prereq:KnowledgePoint)
         RETURN prereq.kp_id AS kp_id, prereq.name AS name, prereq.chapter_id AS chapter_id,
-               prereq.section AS section, prereq.aliases AS aliases, prereq.source AS source
+               prereq.section AS section, prereq.aliases AS aliases, prereq.source AS source,
+               prereq.source_book AS source_book, prereq.source_page AS source_page, prereq.source_pages AS source_pages
         """,
         {"kp_id": kp_id},
     )
@@ -104,7 +107,8 @@ def get_successors(kp_id: str):
         """
         MATCH (k:KnowledgePoint {kp_id: $kp_id})<-[:PREREQUISITE]-(succ:KnowledgePoint)
         RETURN succ.kp_id AS kp_id, succ.name AS name, succ.chapter_id AS chapter_id,
-               succ.section AS section, succ.aliases AS aliases, succ.source AS source
+               succ.section AS section, succ.aliases AS aliases, succ.source AS source,
+               succ.source_book AS source_book, succ.source_page AS source_page, succ.source_pages AS source_pages
         """,
         {"kp_id": kp_id},
     )
@@ -116,7 +120,8 @@ def get_related(kp_id: str):
         """
         MATCH (k:KnowledgePoint {kp_id: $kp_id})-[:RELATED]-(related:KnowledgePoint)
         RETURN related.kp_id AS kp_id, related.name AS name, related.chapter_id AS chapter_id,
-               related.section AS section, related.aliases AS aliases, related.source AS source
+               related.section AS section, related.aliases AS aliases, related.source AS source,
+               related.source_book AS source_book, related.source_page AS source_page, related.source_pages AS source_pages
         LIMIT 10
         """,
         {"kp_id": kp_id},
@@ -126,24 +131,30 @@ def get_related(kp_id: str):
 @router.get("/graph")
 def get_graph():
     nodes = neo4j_client.run("""
-        MATCH (n) WHERE n:KnowledgePoint OR n:Chapter
+        MATCH (n)
+        WHERE n:KnowledgePoint OR n:Chapter OR n:Example
         RETURN {
-            id: COALESCE(n.kp_id, n.chapter_id),
+            id: COALESCE(n.kp_id, n.chapter_id, n.example_id),
             label: COALESCE(n.name, n.title),
-            type: CASE WHEN n:KnowledgePoint THEN 'knowledge_point' ELSE 'chapter' END,
+            type: CASE
+                WHEN n:KnowledgePoint THEN 'knowledge_point'
+                WHEN n:Example THEN 'example'
+                ELSE 'chapter'
+            END,
             data: properties(n)
-        } AS node LIMIT 500
+        } AS node LIMIT 800
     """)
     edges = neo4j_client.run("""
         MATCH (a)-[r]->(b)
-        WHERE (a:KnowledgePoint OR a:Chapter) AND (b:KnowledgePoint OR b:Chapter)
+        WHERE (a:KnowledgePoint OR a:Chapter OR a:Example)
+          AND (b:KnowledgePoint OR b:Chapter OR b:Example)
         RETURN {
             id: id(r),
-            source: COALESCE(a.kp_id, a.chapter_id),
-            target: COALESCE(b.kp_id, b.chapter_id),
+            source: COALESCE(a.kp_id, a.chapter_id, a.example_id),
+            target: COALESCE(b.kp_id, b.chapter_id, b.example_id),
             label: type(r),
             type: type(r)
-        } AS edge LIMIT 1000
+        } AS edge LIMIT 1200
     """)
     return {
         "nodes": [n["node"] for n in nodes],
